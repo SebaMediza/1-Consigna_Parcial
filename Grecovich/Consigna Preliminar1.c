@@ -3,21 +3,23 @@
 #include <time.h> 
 #include <math.h>
 
+#include <stdbool.h>
+
 #define TOTTEMP 20 
 #define TEV1 5 
 #define MINTEM -25
 #define MAXTEM 50
 
-int calefactor(int, int);
+int calefactor(int, bool);
 int enfriador(int, bool);
-int promedio(int, bool);
+int promedio(int);
 int sensa_temp();
 
 
 int main(){
 	
 printf("%d", sensa_temp());
-	/*
+	
 	clock_t tiempo_inicio, tiempo_final, inicio_evento1, fin_evento1 ;
 	double segundos_v=0, tiempo_tot =0; 
 	
@@ -38,8 +40,8 @@ printf("%d", sensa_temp());
 		printf("Tiempo entre eventos %8.2lf\n", segundos_v);
 		}
 	} 
-	printf("Tiempo transcurrido Total de ejecución %lf", tiempo_tot);
-	*/
+	printf("Tiempo transcurrido Total de ejecuciï¿½n %lf", tiempo_tot);
+	
 	
 	int cont1, cont2, contac, contae;
     bool control1, control2;
@@ -56,7 +58,7 @@ printf("%d", sensa_temp());
 			contac=cont1;
 			}
 		}
-	else{
+	}else{
 		if(sensa_temp()>40){
 			if(cont2<1){
 				cont2++;
@@ -73,37 +75,31 @@ printf("%d", sensa_temp());
 		}
 		
 	}
-
-	return (0);
+return (0);
 }
 	
 int sensa_temp(){
-	
     return (rand()%(MAXTEM+1)+MINTEM);
 }
 	
-int calefactor(int temperatura, bool controlcalef){
-	
+int calefactor(int temperatura, bool controlCalecAce){	
 	if(controlCalecAce==false){
 		temperatura++;
 	}else{
-		if(controlcalef==true){
+		if(controlCalecAce==true){
 			temperatura=temperatura+5;
 		}
 	}
 	return temperatura;
 }
 	
-int enfriador(int temperatura, bool controlenfri){
-		
-	if(controlenfri==false){
-			temperatura--;
+int enfriador(int temperatura, bool controlEnfricAce){	
+	if(controlEnfricAce==false){
+		temperatura--;
 	}else{
-		if(controlenfri==true){
+		if(controlEnfricAce==true){
 			temperatura=temperatura-5;
 		}
 	}
 	return temperatura;
 }
-
-
