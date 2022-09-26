@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <time.h> 
 #include <math.h>
-
 #include <stdbool.h>
 
 #define TOTTEMP 20 
