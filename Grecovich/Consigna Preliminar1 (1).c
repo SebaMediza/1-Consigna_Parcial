@@ -5,7 +5,7 @@
 #include <math.h>
 #include <windows.h>
 
-#define TOTTEMP 20 
+#define TOTTEMP 60 
 #define TEV1 5 
 #define MINTEM -25
 #define MAXTEM 50
@@ -17,10 +17,10 @@ void gotoxy(int x,int y){
 	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE),coord);
 }
 	
-	int calefactor(int, bool);
-	int enfriador(int, bool);
-	int promedio(int, bool);
-	int sensa_temp();
+int calefactor(int, bool);
+int enfriador(int, bool);
+int promedio(int, bool);
+int sensa_temp();
 	
 	
 int main(){
@@ -30,6 +30,8 @@ int main(){
 		
 	tiempo_inicio = clock();
 	inicio_evento1 = clock(); 
+	int cont1=0, cont2=0, contac=0, contae=0;
+	bool control1, control2;
 	
 	while (tiempo_tot< TOTTEMP){ 
 		fin_evento1 = clock();
@@ -37,10 +39,9 @@ int main(){
 		segundos_v = (double)(fin_evento1-inicio_evento1)/ CLOCKS_PER_SEC;
 		tiempo_tot= (double)(tiempo_final-tiempo_inicio) / CLOCKS_PER_SEC;
 		
+		
 		if (segundos_v >=TEV1){
 			inicio_evento1 = fin_evento1;
-			int cont1=0, cont2=0, contac=0, contae=0;
-			bool control1, control2;
 			int temp=0;
 			temp=sensa_temp();
 			printf("Temperatura: %d °C \n", temp);
@@ -80,8 +81,8 @@ int main(){
 		}
 	} 
 	printf("Tiempo transcurrido Total de ejecución %lf \n", tiempo_tot);
-		//printf("Se debió acelerar el enfriamento: %d \n", contae);
-		//printf("Se debió acelerar el calentamiento: %d \n", contac);
+	printf("Se debió acelerar el enfriamento: %d \n", contae);
+	printf("Se debió acelerar el calentamiento: %d \n", contac);
 	return(0);
 }		
 int sensa_temp(){			
