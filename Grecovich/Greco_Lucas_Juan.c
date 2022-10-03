@@ -19,7 +19,7 @@ void gotoxy(int x,int y){
 	
 int calefactor(int, bool);
 int enfriador(int, bool);
-int promedio(int, bool);
+int promedio(int, int);
 int sensa_temp();
 	
 	
@@ -31,17 +31,18 @@ int main(){
 	tiempo_inicio = clock();
 	inicio_evento1 = clock(); 
 	int contadorCalor=0, contadorEnfriador=0, contadorSuperCalentar=0, contadorSuperEnfriar=0;
-	bool controlCalor=false, controlEnfriar=false;
+	int contadorMediciones=0, primerPromedio=0, ultimoPromedio=0, temperaturaTotal=0, canitdadMediciones=0;
+	bool controlCalor=false, controlEnfriar=false, primerConteo=true;;
 	
 	while (tiempo_tot< TOTTEMP){ 
 		fin_evento1 = clock();
 		tiempo_final = clock();
 		segundos_v = (double)(fin_evento1-inicio_evento1)/ CLOCKS_PER_SEC;
 		tiempo_tot= (double)(tiempo_final-tiempo_inicio) / CLOCKS_PER_SEC;
+		int temp=0;
 		
 		if (segundos_v >=TEV1){
 			inicio_evento1 = fin_evento1;
-			int temp=0;
 			temp=sensa_temp();
 			printf("Temperatura: %d °C \n", temp);
 			if(temp<0){
@@ -79,13 +80,29 @@ int main(){
 			}
 		printf("Tiempo entre eventos %8.2lf segundos \n", segundos_v);
 		printf("\n");
+		temperaturaTotal=temperaturaTotal+temp;
+		contadorMediciones++;
+		canitdadMediciones++;
+		if(contadorMediciones==3){
+			contadorMediciones=0;
+			if(primerConteo==true){
+				primerPromedio=promedio(temperaturaTotal,canitdadMediciones);
+				primerConteo=false;
+			}else{
+				ultimoPromedio=promedio(temperaturaTotal,canitdadMediciones);
+			}
 		}
-	} 
+		}
+		} 
 	printf("\n\nTiempo transcurrido Total de ejecución %lf \n", tiempo_tot);
 	printf("Se debió acelerar el enfriamento: %d \n", contadorSuperEnfriar);
 	printf("Se debió acelerar el calentamiento: %d \n", contadorSuperCalentar);
+	printf("La cantidad de medidas hechas fueron: %d\n",canitdadMediciones);
+	printf("El promedio de las tres primeras medidas es: %d\n",primerPromedio);
+	printf("El promedio de las ultimas tres medidas es: %d\n",ultimoPromedio);
+		
 	return(0);
-}		
+}
 int sensa_temp(){			
 	return (rand()%(MAXTEM+1)+MINTEM);
 }
@@ -108,4 +125,8 @@ int enfriador(int temperatura, bool controlenfri){
 				}
 			}
 	return temperatura;
+}
+	
+int promedio(int temperaturaTotal, int cantidadMedidas){
+	return (temperaturaTotal/cantidadMedidas);
 }
