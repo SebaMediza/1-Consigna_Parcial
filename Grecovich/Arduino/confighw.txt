@@ -1,4 +1,0 @@
-﻿Coloured LED 1 wired to pin 10 with values D, B
-Coloured LED 2 wired to pin 9 with values D, R
-Coloured LED 3 wired to pin 8 with values D, G
-Analog Slider 1 wired to pin A1 
